@@ -12,6 +12,19 @@ import {
     sendPasswordResetEmail,
     sendWelcomeEmail
 } from '../services/email.service.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const LOG_FILE = path.join(__dirname, '..', 'error.log');
+
+const logError = (msg, error) => {
+    const time = new Date().toISOString();
+    const entry = `[${time}] ${msg}\n${error?.stack || error}\n\n`;
+    fs.appendFileSync(LOG_FILE, entry);
+};
 
 /**
  * Register new user
@@ -85,7 +98,7 @@ export const register = async (req, res) => {
 
     } catch (error) {
         if (client) await client.query('ROLLBACK');
-        console.error('Registration error:', error);
+        logError('Registration error', error);
         res.status(500).json({
             success: false,
             message: 'Ro\'yxatdan o\'tishda xatolik yuz berdi: ' + (error.message || 'Noma\'lum xato')
@@ -252,7 +265,7 @@ export const login = async (req, res) => {
 
     } catch (error) {
         if (client) await client.query('ROLLBACK');
-        console.error('Login error:', error);
+        logError('Login error', error);
         res.status(500).json({
             success: false,
             message: 'Kirishda xatolik yuz berdi: ' + (error.message || 'Noma\'lum xato')
