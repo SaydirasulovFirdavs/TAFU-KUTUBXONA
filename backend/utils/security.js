@@ -1,8 +1,15 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const SALT_ROUNDS = 12;
+
+// Fallback secrets for production if env vars are not set
+const JWT_SECRET = process.env.JWT_SECRET || 'web-kutubxona-jwt-secret-2026-production-key';
+const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'web-kutubxona-refresh-secret-2026-production-key';
 
 /**
  * Hash a password using bcrypt
@@ -24,7 +31,7 @@ export const comparePassword = async (password, hash) => {
 export const generateAccessToken = (userId, role) => {
     return jwt.sign(
         { userId, role },
-        process.env.JWT_SECRET,
+        JWT_SECRET,
         { expiresIn: process.env.JWT_EXPIRE || '15m' }
     );
 };
@@ -35,7 +42,7 @@ export const generateAccessToken = (userId, role) => {
 export const generateRefreshToken = (userId) => {
     return jwt.sign(
         { userId },
-        process.env.JWT_REFRESH_SECRET,
+        JWT_REFRESH_SECRET,
         { expiresIn: process.env.JWT_REFRESH_EXPIRE || '7d' }
     );
 };
@@ -45,7 +52,7 @@ export const generateRefreshToken = (userId) => {
  */
 export const verifyAccessToken = (token) => {
     try {
-        return jwt.verify(token, process.env.JWT_SECRET);
+        return jwt.verify(token, JWT_SECRET);
     } catch (error) {
         return null;
     }
@@ -56,7 +63,7 @@ export const verifyAccessToken = (token) => {
  */
 export const verifyRefreshToken = (token) => {
     try {
-        return jwt.verify(token, process.env.JWT_REFRESH_SECRET);
+        return jwt.verify(token, JWT_REFRESH_SECRET);
     } catch (error) {
         return null;
     }
