@@ -80,6 +80,13 @@ function Register() {
         setSuccess('');
 
         // Validation
+        const nameParts = formData.fullName.trim().split(' ');
+        if (nameParts.length < 2) {
+            setError(t('auth.validate_name_full'));
+            setLoading(false);
+            return;
+        }
+
         if (formData.password !== formData.confirmPassword) {
             setError(t('auth.password_mismatch'));
             return;
