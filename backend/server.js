@@ -47,8 +47,23 @@ app.use(helmet({
 }));
 
 // CORS
+const allowedOrigins = [
+    process.env.FRONTEND_URL,
+    'https://tafu-library-live.vercel.app',
+    'http://localhost:5173',
+    'http://localhost:3000'
+].filter(Boolean);
+
 app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('vercel.app')) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }));
 
@@ -94,7 +109,7 @@ app.get('/health', (req, res) => {
 // Version check for debugging deployment
 app.get('/api/version', (req, res) => {
     res.json({
-        version: '1.0.0-debug-2026-02-23-v3-fixed',
+        version: '1.0.0-debug-2026-02-23-v4-cors',
         deployed_at: new Date().toISOString()
     });
 });
