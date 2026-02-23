@@ -17,9 +17,9 @@ import {
  * Register new user
  */
 export const register = async (req, res) => {
-    const client = await getClient();
-
+    let client;
     try {
+        client = await getClient();
         const { email, password, fullName } = req.body;
 
         // Validate input
@@ -84,14 +84,14 @@ export const register = async (req, res) => {
         });
 
     } catch (error) {
-        await client.query('ROLLBACK');
+        if (client) await client.query('ROLLBACK');
         console.error('Registration error:', error);
         res.status(500).json({
             success: false,
-            message: 'Ro\'yxatdan o\'tishda xatolik yuz berdi'
+            message: 'Ro\'yxatdan o\'tishda xatolik yuz berdi: ' + (error.message || 'Noma\'lum xato')
         });
     } finally {
-        client.release();
+        if (client) client.release();
     }
 };
 
@@ -147,9 +147,9 @@ export const verifyEmail = async (req, res) => {
  * Login
  */
 export const login = async (req, res) => {
-    const client = await getClient();
-
+    let client;
     try {
+        client = await getClient();
         const { email, password } = req.body;
 
         if (!email || !password) {
@@ -251,14 +251,14 @@ export const login = async (req, res) => {
         });
 
     } catch (error) {
-        await client.query('ROLLBACK');
+        if (client) await client.query('ROLLBACK');
         console.error('Login error:', error);
         res.status(500).json({
             success: false,
-            message: 'Kirishda xatolik yuz berdi'
+            message: 'Kirishda xatolik yuz berdi: ' + (error.message || 'Noma\'lum xato')
         });
     } finally {
-        client.release();
+        if (client) client.release();
     }
 };
 
