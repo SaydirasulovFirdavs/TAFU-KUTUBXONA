@@ -78,6 +78,14 @@ app.get('/health', (req, res) => {
     });
 });
 
+// Version check for debugging deployment
+app.get('/api/version', (req, res) => {
+    res.json({
+        version: '1.0.0-debug-2026-02-23-v1',
+        deployed_at: new Date().toISOString()
+    });
+});
+
 // Auth routes
 app.use('/api/auth/login', authLimiter);
 app.use('/api/auth', authRoutes);
