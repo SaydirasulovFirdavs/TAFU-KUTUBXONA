@@ -11,6 +11,19 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const LOG_FILE = path.join(__dirname, 'error.log');
+
+// Helper to log errors
+const logError = (msg, error) => {
+    const time = new Date().toISOString();
+    const entry = `[${time}] ${msg}\n${error?.stack || error}\n\n`;
+    try {
+        fs.appendFileSync(LOG_FILE, entry);
+    } catch (e) {
+        console.error('Failed to write to log file', e);
+    }
+};
+
 // Import routes
 import authRoutes from './routes/auth.routes.js';
 import booksRoutes from './routes/books.routes.js';
@@ -81,7 +94,7 @@ app.get('/health', (req, res) => {
 // Version check for debugging deployment
 app.get('/api/version', (req, res) => {
     res.json({
-        version: '1.0.0-debug-2026-02-23-v2-logs',
+        version: '1.0.0-debug-2026-02-23-v3-fixed',
         deployed_at: new Date().toISOString()
     });
 });
@@ -123,12 +136,7 @@ app.use((err, req, res, next) => {
     console.error('Global error:', err);
 
     // DEBUG LOGGING
-    try {
-        fs.appendFileSync(path.join(__dirname, 'debug_log.txt'), `[${new Date().toISOString()}] Global Error: ${err.message}\nStack: ${err.stack}\n`);
-    } catch (e) {
-        // console.error('Failed to log error to file', e); 
-        // Ignore logging error to prevent crash loops
-    }
+    logError('Global Error', err);
 
     res.status(err.status || 500).json({
         success: false,
