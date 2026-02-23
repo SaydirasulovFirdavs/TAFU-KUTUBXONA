@@ -40,9 +40,10 @@ export const AuthProvider = ({ children }) => {
 
             return { success: true, user };
         } catch (error) {
+            console.error('Login error details:', error.response?.data);
             return {
                 success: false,
-                message: error.response?.data?.message || 'Login failed'
+                message: error.response?.data?.message || 'Kirishda xatolik yuz berdi'
             };
         }
     };
@@ -55,9 +56,10 @@ export const AuthProvider = ({ children }) => {
                 message: response.data.message
             };
         } catch (error) {
+            console.error('Registration error details:', error.response?.data);
             return {
                 success: false,
-                message: error.response?.data?.message || 'Registration failed'
+                message: error.response?.data?.message || 'Ro\'yxatdan o\'tishda xatolik yuz berdi'
             };
         }
     };

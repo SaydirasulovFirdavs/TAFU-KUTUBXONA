@@ -5,13 +5,22 @@ dotenv.config();
 
 const { Pool } = pg;
 
-// PostgreSQL connection pool
-const pool = new Pool({
+// PostgreSQL connection pool. Use DATABASE_URL for Railway/Production
+const poolConfig = process.env.DATABASE_URL ? {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false // Required for Railway and some other providers
+    }
+} : {
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT) || 5432,
     database: process.env.DB_NAME || 'web_kutubxona',
     user: process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD,
+};
+
+const pool = new Pool({
+    ...poolConfig,
     max: 20, // Maximum number of clients in the pool
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
