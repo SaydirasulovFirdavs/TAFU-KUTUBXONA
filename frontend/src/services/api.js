@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL ||
+    (window.location.hostname.includes('vercel.app')
+        ? 'https://tafu-kutubxona-production.up.railway.app/api'
+        : 'http://localhost:5000/api');
 
 // Create axios instance
 const api = axios.create({
