@@ -81,9 +81,20 @@ app.get('/health', (req, res) => {
 // Version check for debugging deployment
 app.get('/api/version', (req, res) => {
     res.json({
-        version: '1.0.0-debug-2026-02-23-v1',
+        version: '1.0.0-debug-2026-02-23-v2-logs',
         deployed_at: new Date().toISOString()
     });
+});
+
+// Direct log viewer (UNSAFE but needed for emergency)
+app.get('/api/debug/logs', (req, res) => {
+    if (fs.existsSync(LOG_FILE)) {
+        const logs = fs.readFileSync(LOG_FILE, 'utf8');
+        res.header('Content-Type', 'text/plain');
+        res.send(logs);
+    } else {
+        res.send('No logs yet');
+    }
 });
 
 // Auth routes
