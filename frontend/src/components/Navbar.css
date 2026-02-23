@@ -1,0 +1,493 @@
+/* ============================================
+   NAVBAR COMPONENT
+   ============================================ */
+.navbar {
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0.8rem 0;
+    transition: all var(--transition-base);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-container-fluid {
+    width: 100%;
+    padding: 0 2rem;
+    /* Comfortable padding from edges */
+}
+
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    /* Essential for absolute centering */
+    height: 3rem;
+}
+
+/* --- Left: Logo --- */
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    z-index: 20;
+}
+
+.logo-img {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- Center: Navigation Links --- */
+.nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    z-index: 10;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: all 0.2s;
+    background: none !important;
+    /* Defensive styles to prevent unwanted icons */
+}
+
+.nav-link::before {
+    content: none !important;
+    display: none !important;
+}
+
+.nav-link:hover {
+    color: var(--color-primary);
+}
+
+.nav-link.active {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+.nav-link.active::after,
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.admin-link {
+    color: var(--color-primary) !important;
+    background: rgba(37, 99, 235, 0.08);
+    padding: 0.4rem 1rem;
+    border-radius: var(--radius-full);
+}
+
+/* --- Right: Actions --- */
+.navbar-menu {
+    display: contents;
+    /* Allows children to behave as part of the main flex container on desktop */
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    z-index: 20;
+}
+
+/* --- Search Bar --- */
+.nav-search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.nav-search-form {
+    display: flex;
+    align-items: center;
+    background: rgba(37, 99, 235, 0.05);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    width: 0;
+    opacity: 0;
+    padding: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(10px);
+}
+
+.nav-search-wrapper.open .nav-search-form {
+    width: 250px;
+    opacity: 1;
+    padding: 0.1rem 0.5rem 0.1rem 1rem;
+    margin-right: 0.5rem;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 15px rgba(37, 99, 235, 0.15);
+}
+
+.nav-search-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--color-text-primary);
+    font-size: 0.9rem;
+    width: 100%;
+    padding: 0.5rem 0;
+}
+
+.nav-search-input::placeholder {
+    color: var(--color-text-tertiary);
+}
+
+.nav-search-submit {
+    background: transparent;
+    border: none;
+    color: var(--color-primary);
+    padding: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.nav-search-submit:hover {
+    transform: scale(1.1);
+}
+
+.nav-search-toggle {
+    background: rgba(37, 99, 235, 0.08);
+    border: none;
+    color: var(--color-primary);
+    padding: 0.6rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.nav-search-toggle:hover {
+    background: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+.nav-search-wrapper.open .nav-search-toggle {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+}
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Start Guest Actions */
+.guest-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-login {
+    color: var(--color-text-primary);
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-lg);
+    transition: all 0.3s;
+}
+
+.btn-login:hover {
+    background: rgba(37, 99, 235, 0.05);
+    color: var(--color-primary);
+}
+
+.btn-register {
+    background: var(--gradient-primary);
+    color: white;
+    font-weight: 600;
+    padding: 0.6rem 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    transition: all 0.3s;
+}
+
+.btn-register:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+}
+
+/* End Guest Actions */
+
+/* Start User Actions */
+.profile-dropdown-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.profile-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--color-primary);
+    border: 1.5px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    padding: 0;
+}
+
+.profile-toggle-btn:hover,
+.profile-toggle-btn.active {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.profile-icon {
+    width: 22px;
+    height: 22px;
+    stroke-width: 2px;
+}
+
+.profile-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: 240px;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--color-border);
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.3s ease-out;
+    z-index: 1001;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-header {
+    padding: 1rem;
+}
+
+.user-name {
+    font-weight: 700;
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+.user-email {
+    font-size: 0.85rem;
+    color: var(--color-text-tertiary);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: var(--color-border);
+    margin: 0.5rem 0;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem 1rem;
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+    background: none;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    text-align: left;
+}
+
+.dropdown-item:hover {
+    background: rgba(37, 99, 235, 0.05);
+    color: var(--color-primary);
+}
+
+.logout-item {
+    color: var(--color-error);
+}
+
+.logout-item:hover {
+    background: rgba(239, 68, 68, 0.05);
+    color: var(--color-error);
+}
+
+/* End User Actions */
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none !important;
+    background: none;
+    border: none;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    z-index: 50;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .navbar {
+        padding: 1rem 0;
+    }
+
+    .navbar-container-fluid {
+        padding: 0 1.5rem;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    /* Reset absolute centering for mobile */
+    .navbar-menu {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        gap: 3rem;
+        transform: translateY(-100%);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 40;
+    }
+
+    .navbar-menu.open {
+        transform: translateY(0);
+    }
+
+    .nav-center {
+        position: static;
+        flex-direction: column;
+        transform: none;
+        gap: 2rem;
+    }
+
+    .nav-link {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .nav-right {
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+        gap: 2rem;
+        width: 100%;
+    }
+
+    .profile-dropdown-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .profile-toggle-btn {
+        display: none;
+    }
+
+    .profile-dropdown-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        padding: 0;
+        animation: none;
+        display: flex !important;
+    }
+
+    .dropdown-header {
+        text-align: center;
+        padding-bottom: 0.5rem;
+    }
+
+    .dropdown-divider {
+        display: none;
+    }
+
+    .dropdown-item {
+        justify-content: center;
+        font-size: 1.2rem;
+        padding: 1rem;
+    }
+
+    .logout-item {
+        background: rgba(239, 68, 68, 0.05) !important;
+        margin-top: 0.5rem;
+    }
+}

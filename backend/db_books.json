@@ -1,0 +1,37 @@
+[
+  {
+    "id": "f1ebba58-fa8e-4487-bdac-a0b11ccaf1c7",
+    "title": "Temur Tuzuklari ",
+    "cover_image": "uploads/books/f80a9094-07c1-4e53-9fd4-b4e328b21985.jpg"
+  },
+  {
+    "id": "fd26d5d3-5bb2-4ec0-b876-aa497db6ef2c",
+    "title": "Temur tuzuklari",
+    "cover_image": "uploads/books/bb54a5d0-075b-475c-8f6c-d87029c7d097.jpg"
+  },
+  {
+    "id": "ec75345a-d55c-421e-a084-ade80972b0be",
+    "title": "Temur tuzuklari",
+    "cover_image": "uploads/books/57760188-9499-462c-8009-8659fb3fb76b.jpg"
+  },
+  {
+    "id": "182d8632-d46b-473a-a141-c14ab7adef4d",
+    "title": "O'tkan kunlar",
+    "cover_image": "https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  {
+    "id": "303806bd-b10d-4b46-8fa6-39efb2cadf56",
+    "title": "Sariq devni minib",
+    "cover_image": "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=800"
+  },
+  {
+    "id": "aadc10f7-4915-415d-a000-11db5b7a280c",
+    "title": "Mehrobdan chayon",
+    "cover_image": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=800"
+  },
+  {
+    "id": "da741c3a-5e7f-44d3-9fd1-f3f0f81cedb8",
+    "title": "JavaScript Professional",
+    "cover_image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800"
+  }
+]

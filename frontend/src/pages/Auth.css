@@ -1,0 +1,281 @@
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    overflow: hidden;
+    background: #fff;
+}
+
+/* --- Left Panel: Illustration --- */
+.auth-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    padding: 2rem;
+}
+
+.auth-illustration-wrapper {
+    max-width: 600px;
+    width: 100%;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.auth-illustration {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* --- Right Panel: Branding & Form --- */
+.auth-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    padding: 3rem;
+    color: #fff;
+    position: relative;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- University Branding --- */
+.university-branding {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.uni-logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.uni-logo-img {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    /* Make logo white for blue background */
+}
+
+.university-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    max-width: 300px;
+}
+
+/* --- Auth Form --- */
+.auth-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.auth-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.auth-form {
+    width: 100%;
+}
+
+.auth-input-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.auth-input-icon {
+    position: absolute;
+    left: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(30, 58, 138, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 0.9rem 1rem 0.9rem 3.5rem;
+    background: #fff;
+    border: none;
+    border-radius: 2rem;
+    color: #333;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.auth-input:focus {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.password-toggle {
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgba(30, 58, 138, 0.4);
+    display: flex;
+    align-items: center;
+}
+
+.auth-input-group.valid .auth-input {
+    border: 1px solid #10b981;
+}
+
+.auth-input-group.invalid .auth-input {
+    border: 1px solid #ef4444;
+}
+
+.validation-indicator {
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    pointer-events: none;
+}
+
+.indicator-wrapper {
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.password-toggle.relative {
+    position: relative;
+    right: 0;
+    top: 0;
+    transform: none;
+}
+
+.auth-submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 2rem;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    backdrop-filter: blur(5px);
+}
+
+.auth-submit-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.auth-submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.auth-footer {
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.auth-footer a {
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border 0.3s;
+}
+
+.auth-footer a:hover {
+    border-color: #fff;
+}
+
+/* --- Language Switcher --- */
+.auth-lang-wrapper {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 10;
+}
+
+/* --- Animations --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Responsive --- */
+@media (max-width: 992px) {
+    .auth-left {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .auth-right {
+        padding: 2rem 1.5rem;
+    }
+
+    .university-branding {
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .uni-logo-grid {
+        width: 45px;
+    }
+
+    .logo-cell {
+        width: 14px;
+        height: 14px;
+    }
+
+    .university-name {
+        font-size: 1.1rem;
+    }
+}
