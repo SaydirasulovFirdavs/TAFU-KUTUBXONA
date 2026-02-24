@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { userAPI } from '../services/api';
+import { userAPI, API_URL } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import Skeleton from '../components/Skeleton';
 import './Library.css';
@@ -139,7 +139,7 @@ function Library() {
                                     <Link to={`/books/${book.id}`} className="book-cover-link">
                                         <div className="book-cover">
                                             {book.cover_image ? (
-                                                <img src={book.cover_image.startsWith('http') ? book.cover_image : `${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '')}/${book.cover_image}`} alt={book.title} />
+                                                <img src={book.cover_image.startsWith('http') ? book.cover_image : `${API_URL.replace('/api', '')}/${book.cover_image.replace(/\\/g, '/')}`} alt={book.title} />
                                             ) : (
                                                 <div className="book-cover-placeholder">
                                                     <span>📖</span>

@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { booksAPI } from '../services/api';
-import Skeleton from '../components/Skeleton';
+import { booksAPI, API_URL } from '../services/api';
+import BookCard from '../components/BookCard';
+import Skeleton from '../components/ui/Skeleton';
 import './Books.css';
 
 function Books() {
@@ -104,11 +105,10 @@ function Books() {
     };
 
     const getImageUrl = (path) => {
-        if (!path) return null;
+        if (!path) return '';
         if (path.startsWith('http')) return path;
 
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-        const baseUrl = apiUrl.endsWith('/api') ? apiUrl.replace('/api', '') : apiUrl;
+        const baseUrl = API_URL.endsWith('/api') ? API_URL.replace('/api', '') : API_URL;
 
         const cleanPath = path.replace(/\\/g, '/');
         const finalUrl = `${baseUrl}/${cleanPath.startsWith('/') ? cleanPath.substring(1) : cleanPath}`;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { adminAPI, booksAPI } from '../../services/api';
+import { adminAPI, booksAPI, API_URL } from '../../services/api';
 import BookUploadForm from '../../components/BookUploadForm';
 import './Admin.css';
 
@@ -113,7 +113,7 @@ function AdminBooks() {
                                 <td className="col-cover">
                                     <div className="table-book-cover">
                                         {book.cover_image ? (
-                                            <img src={book.cover_image.startsWith('http') ? book.cover_image : `${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '')}/${book.cover_image}`} alt={book.title} />
+                                            <img src={book.cover_image.startsWith('http') ? book.cover_image : `${API_URL.replace('/api', '')}/${book.cover_image.replace(/\\/g, '/')}`} alt={book.title} />
                                         ) : (
                                             <div className="table-cover-placeholder">
                                                 <span>📚</span>

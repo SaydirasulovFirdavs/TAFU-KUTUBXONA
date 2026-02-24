@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { booksAPI, userAPI } from '../services/api';
+import { booksAPI, userAPI, API_URL } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import StarRating from '../components/StarRating';
-import Skeleton from '../components/Skeleton';
+import Skeleton from '../components/ui/Skeleton';
 import './BookDetail.css';
 
 function BookDetail() {
@@ -187,7 +187,7 @@ function BookDetail() {
                 <div className="book-header glass">
                     <div className="book-cover-large">
                         {book.cover_image ? (
-                            <img src={book.cover_image.startsWith('http') ? book.cover_image : `${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '')}/${book.cover_image}`} alt={book.title} />
+                            <img src={book.cover_image.startsWith('http') ? book.cover_image : `${API_URL.replace('/api', '')}/${book.cover_image.replace(/\\/g, '/')}`} alt={book.title} />
                         ) : (
                             <div className="book-cover-placeholder">
                                 <span>📖</span>

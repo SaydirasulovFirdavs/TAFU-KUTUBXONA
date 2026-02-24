@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
-import { booksAPI } from '../services/api';
+import { booksAPI, API_URL } from '../services/api';
 import Skeleton from '../components/Skeleton';
 import logo from '../assets/uni-logo.png';
 import './Home.css';
@@ -135,7 +135,7 @@ function Home() {
                                 >
                                     <div className="book-preview-cover">
                                         {book.cover_image ? (
-                                            <img src={book.cover_image.startsWith('http') ? book.cover_image : `${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '')}/${book.cover_image}`} alt={book.title} />
+                                            <img src={book.cover_image.startsWith('http') ? book.cover_image : `${API_URL.replace('/api', '')}/${book.cover_image.replace(/\\/g, '/')}`} alt={book.title} />
                                         ) : (
                                             <div className="book-preview-placeholder">📖</div>
                                         )}

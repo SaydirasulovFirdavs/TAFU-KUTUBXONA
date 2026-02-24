@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Hardcode the production URL for Vercel deployments to prevent any 
 // accidental VITE_API_URL overrides in Vercel dashboard settings.
-const API_URL = window.location.hostname.includes('vercel.app')
+export const API_URL = window.location.hostname.includes('vercel.app')
     ? 'https://tafu-kutubxona-production.up.railway.app/api'
     : (import.meta.env.VITE_API_URL || 'http://localhost:5000/api');
 

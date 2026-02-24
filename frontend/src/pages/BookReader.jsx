@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Document, Page, pdfjs } from 'react-pdf';
-import { booksAPI } from '../services/api';
+import { booksAPI, API_URL } from '../services/api';
 import './BookReader.css';
 
 // Set worker 
@@ -110,7 +110,7 @@ function BookReader() {
         );
     }
 
-    const pdfUrl = book.file_url || (book.file_path ? `${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '')}/${book.file_path}` : null);
+    const pdfUrl = book.file_url || (book.file_path ? `${API_URL.replace('/api', '')}/${book.file_path.replace(/\\/g, '/')}` : null);
     const pages = Array.from({ length: numPages || 0 }, (_, i) => i + 1);
 
     return (

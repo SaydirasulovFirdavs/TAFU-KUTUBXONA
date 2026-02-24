@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { adminAPI } from '../services/api';
+import { adminAPI, API_URL } from '../services/api';
 import '../pages/admin/Admin.css'; // Ensure CSS is applied
 
 function BookUploadForm({ onSuccess, initialData = null, onCancel }) {
@@ -68,7 +68,7 @@ function BookUploadForm({ onSuccess, initialData = null, onCancel }) {
             if (initialData.cover_image) {
                 const previewUrl = initialData.cover_image.startsWith('http')
                     ? initialData.cover_image
-                    : `${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '')}/${initialData.cover_image}`;
+                    : `${API_URL.replace('/api', '')}/${initialData.cover_image.replace(/\\/g, '/')}`;
                 setCoverPreview(previewUrl);
             }
         }
