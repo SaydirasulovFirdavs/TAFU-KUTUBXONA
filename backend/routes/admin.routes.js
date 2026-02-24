@@ -25,8 +25,8 @@ const router = express.Router();
 // Multer config for uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        // Use absolute path to ensure it matches express.static configuration
-        const uploadDir = path.join(__dirname, '../uploads/books');
+        // Use absolute path for Railway volume or fallback to local uploads folder
+        const uploadDir = process.env.RAILWAY_ENVIRONMENT ? '/app/uploads/books' : path.join(__dirname, '../uploads/books');
         if (!fs.existsSync(uploadDir)) {
             fs.mkdirSync(uploadDir, { recursive: true });
         }
