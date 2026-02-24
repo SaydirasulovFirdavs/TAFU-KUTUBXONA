@@ -101,16 +101,16 @@ function AdminDashboard() {
                     <div className="activity-chart">
                         <div className="chart-bar-container">
                             <div className="chart-bar" style={{ height: '70%' }}>
-                                <span className="bar-label">Books</span>
+                                <span className="bar-label">{t('admin.chart_books')}</span>
                             </div>
                             <div className="chart-bar" style={{ height: '40%' }}>
-                                <span className="bar-label">Users</span>
+                                <span className="bar-label">{t('admin.chart_users')}</span>
                             </div>
                             <div className="chart-bar primary" style={{ height: '90%' }}>
-                                <span className="bar-label">Downloads</span>
+                                <span className="bar-label">{t('admin.chart_downloads')}</span>
                             </div>
                             <div className="chart-bar success" style={{ height: '55%' }}>
-                                <span className="bar-label">New</span>
+                                <span className="bar-label">{t('admin.chart_new')}</span>
                             </div>
                         </div>
                     </div>
