@@ -282,47 +282,48 @@
     }
 
     .book-header {
-        grid-template-columns: 1fr;
-        padding: var(--spacing-lg);
-        gap: var(--spacing-xl);
+        grid-template-columns: 1fr !important;
+        padding: var(--spacing-lg) !important;
+        gap: var(--spacing-xl) !important;
     }
 
     .book-cover-large {
-        width: 220px;
-        margin: 0 auto;
-        box-shadow: var(--shadow-lg);
+        width: 220px !important;
+        margin: 0 auto !important;
+        box-shadow: var(--shadow-lg) !important;
     }
 
     .book-main-info {
-        text-align: center;
-        width: 100%;
+        text-align: center !important;
+        width: 100% !important;
     }
 
     .book-title {
-        font-size: 2rem;
-        margin-bottom: var(--spacing-xs);
+        font-size: 2rem !important;
+        margin-bottom: var(--spacing-xs) !important;
     }
 
     .book-meta-grid {
-        justify-content: center;
-        padding: var(--spacing-md);
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        text-align: left;
+        justify-content: center !important;
+        padding: var(--spacing-md) !important;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        text-align: left !important;
     }
 
     .book-stats-large {
-        justify-content: center;
-        gap: var(--spacing-lg);
+        justify-content: center !important;
+        gap: var(--spacing-lg) !important;
     }
 
     .book-actions {
-        justify-content: center;
-        width: 100%;
+        justify-content: center !important;
+        width: 100% !important;
+        gap: 10px !important;
     }
 
     .book-actions .btn {
-        width: 100%;
-        justify-content: center;
+        width: 100% !important;
+        justify-content: center !important;
     }
 }
