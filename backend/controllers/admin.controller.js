@@ -44,9 +44,9 @@ export const uploadBook = async (req, res) => {
         }
 
         // 1. Insert book
-        // Fix windows paths for both files
-        const bookPath = bookFile.path.replace(/\\/g, '/');
-        const coverPath = coverImage ? coverImage.path.replace(/\\/g, '/') : null;
+        // Use relative path for database storage to align with static serving
+        const bookPath = `uploads/books/${bookFile.filename}`;
+        const coverPath = coverImage ? `uploads/books/${coverImage.filename}` : null;
 
         // Determine file format from mimetype or extension
         const fileFormat = bookFile.mimetype === 'application/epub+zip' ? 'epub' : 'pdf';
@@ -188,7 +188,7 @@ export const updateBook = async (req, res) => {
         // If book file is uploaded
         if (files['file']) {
             const bookFile = files['file'][0];
-            const bookPath = bookFile.path.replace(/\\/g, '/');
+            const bookPath = `uploads/books/${bookFile.filename}`;
             const fileFormat = bookFile.mimetype === 'application/epub+zip' ? 'epub' : 'pdf';
 
             updateQuery += `, file_path = $${paramIndex}, file_format = '${fileFormat}', file_size = $${paramIndex + 1}`;
@@ -199,7 +199,7 @@ export const updateBook = async (req, res) => {
         // If cover image is uploaded
         if (files['cover_image']) {
             const coverImage = files['cover_image'][0];
-            const coverPath = coverImage.path.replace(/\\/g, '/');
+            const coverPath = `uploads/books/${coverImage.filename}`;
 
             updateQuery += `, cover_image = $${paramIndex}`;
             params.push(coverPath);
