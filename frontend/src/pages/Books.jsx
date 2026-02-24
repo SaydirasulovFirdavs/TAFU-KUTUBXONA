@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { booksAPI, API_URL } from '../services/api';
-import BookCard from '../components/BookCard';
-import Skeleton from '../components/ui/Skeleton';
+import Skeleton from '../components/Skeleton';
 import './Books.css';
 
 function Books() {

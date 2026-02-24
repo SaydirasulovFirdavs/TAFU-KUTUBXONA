@@ -4,7 +4,7 @@ import { booksAPI, userAPI, API_URL } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import StarRating from '../components/StarRating';
-import Skeleton from '../components/ui/Skeleton';
+import Skeleton from '../components/Skeleton';
 import './BookDetail.css';
 
 function BookDetail() {
