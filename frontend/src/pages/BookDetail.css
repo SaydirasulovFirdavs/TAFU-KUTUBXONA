@@ -70,6 +70,7 @@
     line-height: 1.2;
     background: var(--gradient-text);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -271,33 +272,57 @@
 }
 
 @media (max-width: 768px) {
+    .navbar-brand span {
+        display: none;
+        /* Hide 'TOSHKENT AMALIY...' text on mobile */
+    }
+
+    .navbar-logo {
+        height: 32px !important;
+    }
+
     .book-header {
         grid-template-columns: 1fr;
         padding: var(--spacing-lg);
+        gap: var(--spacing-xl);
     }
 
     .book-cover-large {
-        width: 180px;
+        width: 220px;
         margin: 0 auto;
+        box-shadow: var(--shadow-lg);
     }
 
     .book-main-info {
         text-align: center;
-    }
-
-    .book-meta-grid {
-        justify-content: center;
-    }
-
-    .book-stats-large {
-        justify-content: center;
-    }
-
-    .book-actions {
-        justify-content: center;
+        width: 100%;
     }
 
     .book-title {
         font-size: 2rem;
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .book-meta-grid {
+        justify-content: center;
+        padding: var(--spacing-md);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        text-align: left;
+    }
+
+    .book-stats-large {
+        justify-content: center;
+        gap: var(--spacing-lg);
+    }
+
+    .book-actions {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .book-actions .btn {
+        width: 100%;
+        justify-content: center;
     }
 }

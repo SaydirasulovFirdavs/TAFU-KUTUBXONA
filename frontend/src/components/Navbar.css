@@ -422,7 +422,27 @@
     .navbar-menu.open {
         transform: translateY(0);
     }
+}
 
+@media (max-width: 480px) {
+    .navbar-brand {
+        gap: 0.5rem;
+    }
+
+    .brand-logo-img {
+        height: 32px !important;
+    }
+
+    .brand-text h1 {
+        font-size: 0.9rem !important;
+    }
+
+    .brand-text p {
+        display: none;
+    }
+}
+
+@media (max-width: 992px) {
     .nav-center {
         position: static;
         flex-direction: column;
