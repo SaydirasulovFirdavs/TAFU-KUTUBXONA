@@ -15,12 +15,18 @@ import {
 } from '../controllers/admin.controller.js';
 import { authenticateToken, requireAdmin, requireSuperAdmin } from '../middleware/auth.middleware.js';
 
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const router = express.Router();
 
 // Multer config for uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const uploadDir = 'uploads/books/';
+        // Use absolute path to ensure it matches express.static configuration
+        const uploadDir = path.join(__dirname, '../uploads/books');
         if (!fs.existsSync(uploadDir)) {
             fs.mkdirSync(uploadDir, { recursive: true });
         }
