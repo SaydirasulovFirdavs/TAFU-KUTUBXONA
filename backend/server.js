@@ -72,8 +72,21 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Serve static files (uploads) with custom headers for CORS required by PDF.js
-const uploadsPath = process.env.RAILWAY_ENVIRONMENT ? '/app/uploads' : path.join(__dirname, 'uploads');
+const uploadsPath = path.resolve(process.cwd(), 'uploads');
+console.log('--- SERVER STARTUP ---');
+console.log('Current working directory:', process.cwd());
+console.log('Uploads path resolved to:', uploadsPath);
+if (fs.existsSync(uploadsPath)) {
+    console.log('Uploads directory EXISTS');
+    const contents = fs.readdirSync(uploadsPath);
+    console.log('Uploads directory contents:', contents);
+} else {
+    console.log('CRITICAL: Uploads directory DOES NOT EXIST at', uploadsPath);
+}
+
 app.use('/uploads', (req, res, next) => {
+    // Log image requests
+    console.log(`Image request: ${req.url}`);
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
