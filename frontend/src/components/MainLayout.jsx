@@ -11,7 +11,7 @@ function MainLayout() {
 
             <footer className="main-footer">
                 <div className="container">
-                    <p>&copy; {new Date().getFullYear()} KUTUBXONA. Barcha huquqlar himoyalangan. <span style={{ opacity: 0.5, fontSize: '0.8rem' }}>v1.1 - Mobile Fixed </span></p>
+                    <p>&copy; {new Date().getFullYear()} KUTUBXONA. Barcha huquqlar himoyalangan. <span style={{ opacity: 0.5, fontSize: '0.8rem' }}>v1.1 - Image Fix </span></p>
                 </div>
             </footer>
         </div>
