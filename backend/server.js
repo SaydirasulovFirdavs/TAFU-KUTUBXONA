@@ -40,10 +40,11 @@ const PORT = process.env.PORT || 5000;
 // MIDDLEWARE
 // ============================================
 
-// Security headers - Customize for PDF loading
+// Security headers - Customize for PDF and Image loading
 app.use(helmet({
     contentSecurityPolicy: false,
     crossOriginResourcePolicy: { policy: "cross-origin" },
+    crossOriginEmbedderPolicy: false,
 }));
 
 // CORS
@@ -84,14 +85,13 @@ if (fs.existsSync(uploadsPath)) {
     console.log('CRITICAL: Uploads directory DOES NOT EXIST at', uploadsPath);
 }
 
-app.use('/uploads', (req, res, next) => {
-    // Log image requests
-    console.log(`Image request: ${req.url}`);
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    next();
-}, express.static(uploadsPath));
+app.use('/uploads', express.static(uploadsPath, {
+    setHeaders: (res) => {
+        res.set('Access-Control-Allow-Origin', '*');
+        res.set('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+        res.set('Cross-Origin-Resource-Policy', 'cross-origin');
+    }
+}));
 
 // Rate limiting
 const limiter = rateLimit({
