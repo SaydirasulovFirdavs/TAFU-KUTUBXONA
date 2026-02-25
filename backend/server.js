@@ -144,6 +144,26 @@ app.use('/api/user', userRoutes);
 // Admin routes
 app.use('/api/admin', adminRoutes);
 
+// Directory list viewer
+app.get('/api/debug/dir', async (req, res) => {
+    try {
+        const p = req.query.path || uploadsPath;
+        // The 'fs' module is already imported at the top of the file.
+        // The instruction included 'const fs = await import('fs');' which is redundant here.
+        // To make the code syntactically correct as per the instruction's provided snippet,
+        // the route handler must be 'async' if 'await' is used inside it.
+        // We will use the already imported 'fs' module directly.
+        if (fs.existsSync(p)) {
+            const files = fs.readdirSync(p);
+            res.json({ path: p, files });
+        } else {
+            res.status(404).json({ error: 'Path not found', attempted: p });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // 404 handler
 app.use((req, res) => {
     res.status(404).json({
