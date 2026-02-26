@@ -162,24 +162,18 @@ app.use('/api/admin', adminRoutes);
 const runEmergencySync = async () => {
     try {
         console.log('--- EMERGENCY DB SYNC STARTING ---');
-        const booksResult = await query('SELECT id, title FROM books');
-        const books = booksResult.rows;
-
-        const updates = [
-            { title: 'Temur Tuzuklari', img: 'uploads/books/bb54a5d0-075b-475c-8f6c-d87029c7d097.jpg' },
-            { title: 'Kecha va Kunduz', img: 'uploads/books/d0e64e7b-f710-4be8-8310-21dee6a07bcd.jpg' },
-            { title: 'Ikki eshik orasi', img: 'uploads/books/d736df53-99a1-4b4b-9a13-929cf98609c7.jpg' },
-            { title: 'Sariq devni minib', img: 'uploads/books/02cbe054-5c5f-4f3c-b5ed-7ed0776b9054.png' },
-            { title: 'Kaktuslar ham gullaydi', img: 'uploads/books/3a8e7ac8-b3a0-40cf-aa5e-e8be51183593.png' }
+        const syncUpdates = [
+            { id: '2d34d8d8-6d1c-41ae-aa74-75a66090bc62', img: 'uploads/books/d0e64e7b-f710-4be8-8310-21dee6a07bcd.jpg' }, // Kecha va Kunduz
+            { id: '1ad0abc2-ff70-4509-b939-aa25660cde9c', img: 'uploads/books/d736df53-99a1-4b4b-9a13-929cf98609c7.jpg' }, // Ikki eshik orasi
+            { id: '7e84c7d2-ea89-4e0a-af24-bff6b2466b3a', img: 'uploads/books/bb54a5d0-075b-475c-8f6c-d87029c7d097.jpg' }, // Temur Tuzuklari
+            { id: '22bbcad2-754c-4533-884e-dce04d6481ab', img: 'uploads/books/3a8e7ac8-b3a0-40cf-aa5e-e8be51183593.png' }, // Kaktuslar
+            { id: '479e4707-6aa2-4655-9dde-a462fb64a77e', img: 'uploads/books/02cbe054-5c5f-4f3c-b5ed-7ed0776b9054.png' }  // Sariq devni minib
         ];
 
         let updatedCount = 0;
-        for (const update of updates) {
-            const book = books.find(b => b.title.toLowerCase().includes(update.title.toLowerCase()));
-            if (book) {
-                await query('UPDATE books SET cover_image = $1 WHERE id = $2', [update.img, book.id]);
-                updatedCount++;
-            }
+        for (const update of syncUpdates) {
+            await query('UPDATE books SET cover_image = $1 WHERE id = $2', [update.img, update.id]);
+            updatedCount++;
         }
         console.log(`--- EMERGENCY DB SYNC COMPLETED: ${updatedCount} books updated ---`);
     } catch (err) {
