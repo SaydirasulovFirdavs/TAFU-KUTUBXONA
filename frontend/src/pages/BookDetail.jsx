@@ -187,7 +187,16 @@ function BookDetail() {
                 <div className="book-header glass">
                     <div className="book-cover-large">
                         {book.cover_image ? (
-                            <img src={book.cover_image.startsWith('http') ? book.cover_image : `${API_URL.replace('/api', '')}/${book.cover_image.replace(/\\/g, '/')}`} alt={book.title} />
+                            <img
+                                src={book.cover_image.startsWith('http')
+                                    ? book.cover_image
+                                    : `${API_URL.endsWith('/api') ? API_URL.replace('/api', '') : API_URL}/${book.cover_image.replace(/\\/g, '/')}`}
+                                alt={book.title}
+                                onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = 'https://via.placeholder.com/300x400?text=No+Cover';
+                                }}
+                            />
                         ) : (
                             <div className="book-cover-placeholder">
                                 <span>📖</span>
