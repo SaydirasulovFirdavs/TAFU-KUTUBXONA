@@ -157,6 +157,34 @@ app.use('/api/user', userRoutes);
 // Admin routes
 app.use('/api/admin', adminRoutes);
 
+// Image sync trigger
+app.get('/api/debug/sync-images', async (req, res) => {
+    try {
+        const booksResult = await query('SELECT id, title FROM books');
+        const books = booksResult.rows;
+
+        const updates = [
+            { title: 'Temur Tuzuklari', img: 'uploads/books/bb54a5d0-075b-475c-8f6c-d87029c7d097.jpg' },
+            { title: 'Kecha va Kunduz', img: 'uploads/books/d0e64e7b-f710-4be8-8310-21dee6a07bcd.jpg' },
+            { title: 'Ikki eshik orasi', img: 'uploads/books/d736df53-99a1-4b4b-9a13-929cf98609c7.jpg' },
+            { title: 'Sariq devni minib', img: 'uploads/books/02cbe054-5c5f-4f3c-b5ed-7ed0776b9054.png' },
+            { title: 'Kaktuslar ham gullaydi', img: 'uploads/books/3a8e7ac8-b3a0-40cf-aa5e-e8be51183593.png' }
+        ];
+
+        let updatedCount = 0;
+        for (const update of updates) {
+            const book = books.find(b => b.title.toLowerCase().includes(update.title.toLowerCase()));
+            if (book) {
+                await query('UPDATE books SET cover_image = $1 WHERE id = $2', [update.img, book.id]);
+                updatedCount++;
+            }
+        }
+        res.json({ success: true, updated: updatedCount });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // Directory list viewer
 app.get('/api/debug/dir', async (req, res) => {
     try {
