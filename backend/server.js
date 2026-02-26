@@ -1,4 +1,5 @@
 import express from 'express';
+import { query } from './config/database.js';
 import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
