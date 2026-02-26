@@ -158,9 +158,10 @@ app.use('/api/user', userRoutes);
 // Admin routes
 app.use('/api/admin', adminRoutes);
 
-// Image sync trigger
-app.get('/api/debug/sync-images', async (req, res) => {
+// Emergency DB Sync Function
+const runEmergencySync = async () => {
     try {
+        console.log('--- EMERGENCY DB SYNC STARTING ---');
         const booksResult = await query('SELECT id, title FROM books');
         const books = booksResult.rows;
 
@@ -180,7 +181,17 @@ app.get('/api/debug/sync-images', async (req, res) => {
                 updatedCount++;
             }
         }
-        res.json({ success: true, updated: updatedCount });
+        console.log(`--- EMERGENCY DB SYNC COMPLETED: ${updatedCount} books updated ---`);
+    } catch (err) {
+        console.error('--- EMERGENCY DB SYNC FAILED ---', err);
+    }
+};
+
+// Image sync trigger (Legacy for manual check)
+app.get('/api/debug/sync-images', async (req, res) => {
+    try {
+        await runEmergencySync();
+        res.json({ success: true, message: 'Sync performed' });
     } catch (err) {
         res.status(500).json({ error: err.message, stack: err.stack });
     }
@@ -232,7 +243,7 @@ app.use((err, req, res, next) => {
 // ============================================
 
 if (process.env.NODE_ENV !== 'test') {
-    app.listen(PORT, () => {
+    app.listen(PORT, async () => {
         console.log(`
     ╔═══════════════════════════════════════════╗
     ║   📚 Web Kutubxona API Server            ║
@@ -241,6 +252,9 @@ if (process.env.NODE_ENV !== 'test') {
     ║   📡 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:5173'} ║
     ╚═══════════════════════════════════════════╝
         `);
+
+        // Trigger auto-sync
+        await runEmergencySync();
     });
 }
 
