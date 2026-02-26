@@ -182,7 +182,7 @@ app.get('/api/debug/sync-images', async (req, res) => {
         }
         res.json({ success: true, updated: updatedCount });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: err.message, stack: err.stack });
     }
 });
 
